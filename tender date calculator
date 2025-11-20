@@ -1,0 +1,22 @@
+from datetime import datetime, timedelta
+
+def is_weekday(date):
+    return date.weekday() < 5
+
+start_input = input("When did they upload that tender?: ")
+try:
+    start_date = datetime.strptime(start_input, "%b %d %Y")
+except ValueError:
+    start_date = datetime.strptime(f"{start_input} {datetime.now().year}", "%b %d %Y")
+
+days_to_count = int(input("How many weekdays to count? "))
+
+current_date = start_date
+counted_days = 0
+
+while counted_days < days_to_count:
+    current_date += timedelta(days=1)
+    if is_weekday(current_date):
+        counted_days += 1
+
+print("That bid gonna open on:", current_date.strftime("%b %d, %Y"))
